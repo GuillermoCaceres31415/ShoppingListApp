@@ -8,4 +8,10 @@ add_executable(ShoppingListApp main.cpp
         Item.h
         Category.h
         List.cpp
-        List.h)
+        List.h
+        Account.cpp
+        Account.h
+        Observer.h
+        Subject.h
+        PrintList.cpp
+        PrintList.h)

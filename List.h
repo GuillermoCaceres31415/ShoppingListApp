@@ -6,25 +6,45 @@
 #define SHOPPINGLISTAPP_LIST_H
 #include <list>
 #include "Item.h"
+#include "Subject.h"
+#include "Observer.h"
 
-class List {
+class List: public Subject{
 private:
+    std::string name;
     std::list<Item> items;
     unsigned int Totalqty;
+
+    std::list <Observer*>observers;
 public:
     List():Totalqty(0){}
 
-
     void  addItem (Item &newItem) {
         items.push_back(newItem);
-        Totalqty++;
+        Totalqty=Totalqty+ newItem.getQty();
+        notify();
     }
 
-    void showList ()const{
-        for (auto const & i :items){
-            i.showItem();
+    void subscribe(Observer*o)override{
+        observers.push_back(o);
+    }
+
+    void unsubscribe(Observer*o)override{
+        observers.remove(o);
+    }
+
+    void notify()override{
+        for (auto itr=std::begin(observers);itr!=std::end(observers);itr++){
+            (*itr)->update();
         }
-        std::cout << "total items: " <<Totalqty;
+    }
+
+    const std::list<Item> &getItems() const {
+        return items;
+    }
+
+    unsigned int getTotalqty() const {
+        return Totalqty;
     }
 
 };

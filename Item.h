@@ -22,7 +22,17 @@ public:
     }
 
 
+    const std::string &getName() const {
+        return name;
+    }
 
+    unsigned int getQty() const {
+        return qty;
+    }
+
+    Category getCategory() const {
+        return category;
+    }
 
 };
 

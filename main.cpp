@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "Category.h"
 #include "List.h"
+#include "PrintList.h"
 
 
 int main() {
@@ -12,10 +13,12 @@ int main() {
     Item obj2(pollo,2,Category::MeatAndDerivatives);
 
     List list;
+    PrintList printList(&list);
+
     list.addItem(obj1);
     list.addItem(obj2);
 
-    list.showList();
+
 
     return 0;
 }
