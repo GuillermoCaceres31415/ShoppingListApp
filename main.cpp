@@ -1,8 +1,5 @@
 #include <iostream>
 #include <map>
-#include "Item.h"
-#include "Category.h"
-#include "List.h"
 #include "PrintList.h"
 #include "Account.h"
 
@@ -14,7 +11,7 @@ void UserListsManager(Account &account){
     ║  LISTE DI   )"<<account.getName()<< R"(                 ║
     ╚════════════════════════════════════╝
 )" ;
-        if (account.ShowMyLists()) {
+            bool Empty = account.ShowMyLists();
             std::cout << "    [+] per creare una nuova lista" << std::endl;
             std::cout << "    [s] per selezionare una lista" << std::endl;
             std::cout << "    [x] per tornare alla home" << std::endl;
@@ -22,8 +19,6 @@ void UserListsManager(Account &account){
 
             std::string com;
             std::cin >> com;
-
-            //TODO eliminare la rindondanza!!!
 
 
             switch (com[0]) {
@@ -33,8 +28,14 @@ void UserListsManager(Account &account){
                     break;
                 case 's':
                 case 'S':
-                    account.SelectList();
+                    {
+                        if (!Empty){
+                            std::cout<<"    prima aggiungi una lista!"<<std::endl;
+                        } else
+                            account.SelectList();
                     break;
+                    }
+
                 case 'x':
                 case 'X':
                     loop= false;
@@ -44,18 +45,7 @@ void UserListsManager(Account &account){
                     break;
             }
 
-        } else {
-            std::cout << "    [+] per creare una nuova lista"<<std::endl;
-            std::cout<<"    inserire un comando: ";
 
-            std::string command;
-            std::cin>> command;
-            if (command=="+") {
-                PrintList* printList;
-                account.CreateNewList(printList);
-            }
-
-        }
     }
 }
 
@@ -85,20 +75,31 @@ int main() {
                 std::cout << "    scegliere un nome: ";
                 std::string name;
                 std::cin >> name;
-                Account Name(name);
-                database.insert(std::pair<std::string, Account *>(name, &Name));
-                UserListsManager(Name);
+                auto * account=new Account(name);
+                database[name] = account;
+                UserListsManager(*account);
                 break;
             }
-
+            //
             case 2: {
                 for (auto &itr: database) {
-                    std::cout << itr.first << " " << itr.second << std::endl;
+                    std::cout <<"    "<<itr.first <<" "<< itr.second << std::endl;
                 }
+                std::string setName;
+                std::cout<<"    Inserire nome di account: ";
+                std::cin>>setName;
+                auto itr =database.find(setName);
+                UserListsManager(*((*itr).second));
+
+                break;
+            }
+            case 3: {
+                std::cout << "    uscita in corso..." << std::endl;
+                loop= false;
                 break;
             }
             default:
-                std::cout << "uscita in corso..." << std::endl;
+                std::cout << "    errore" << std::endl;
                 break;
         }
     }
@@ -106,36 +107,5 @@ int main() {
 
 
 
-    /*
-
-    std::string luca="luca";
-    Account Luca(luca);
-
-    std::string marco="marco";
-    Account Marco(marco);
-
-    std::map<std::string,Account*> database;
-
-    database.insert(std::pair<std::string,Account*>(luca,&Luca));
-    database.insert(std::pair<std::string,Account*>(marco,&Marco));
-
-    for (auto itr:database){
-        std::cout<<itr.first<<" "<<itr.second<<std::endl;
-    }
-*/
-
-    /*
-    std::string pane="pane";
-    Item obj1(pane,3,Category::CerealsAndDerivatives);
-
-    std::string pollo="pollo";
-    Item obj2(pollo,2,Category::MeatAndDerivatives);
-
-    List list;
-    PrintList printList(&list);
-
-    list.addItem(obj1);
-    list.addItem(obj2);
-*/
     return 0;
 }

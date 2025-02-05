@@ -9,6 +9,7 @@
 #include "PrintList.h"
 #include "Item.h"
 #include "Category.h"
+#include <memory>
 
 class Account {
 private:
@@ -59,8 +60,9 @@ public:
                 std::cout << "    inserire quantità: " ;
                 std::cin>>qty;
 
-                Item NewItem(NameProduct,qty,Category::CerealsAndDerivatives);
-                (*itr)->addItem(NewItem);
+                Item* newItem = new Item(NameProduct, qty, Category::CerealsAndDerivatives);
+                (*itr)->addItem(*newItem);
+                delete newItem;
                 break;
             }
             case 'n':
@@ -73,15 +75,17 @@ public:
 
     }
 
-    void CreateNewList(PrintList * p){
-
-        std::cout<<"    inserire nome della lista: ";
+    void CreateNewList(PrintList *& p) {  // Passaggio per riferimento
+        std::cout << "    Inserire nome della lista: ";
         std::string nameList;
-        std::cin>>nameList;
-        List *list=new List(nameList);
-        p=new PrintList(list);
-        myLists.push_back(list);
+        std::getline(std::cin >> std::ws, nameList);  // Per leggere spazi
+
+        List* list = new List(nameList);  // Allocazione dinamica
+        p = new PrintList(list);  // Evita di perdere il vecchio puntatore
+
+        myLists.push_back(list);  // Memorizza la lista nel vettore
     }
+
 
     const std::string &getName() const {
         return name;
