@@ -14,8 +14,8 @@ private:
     std::string name;
     std::list<Item> items;
     unsigned int Totalqty;
-
     std::list <Observer*>observers;
+
 public:
     explicit List(std::string& n):name(n),Totalqty(0){}
 
@@ -25,10 +25,13 @@ public:
         notify();
     }
 
-    void showList ()const{
-        for (auto const & i :items){
+    void showList ()const {
+        if (!items.empty()) {
+        for (auto const &i: items)
             i.showItem();
-        }
+        }else
+            std::cout<<"    [la lista è vuota]"<<std::endl;
+
     }
 
     void subscribe(Observer*o)override{

@@ -12,7 +12,6 @@
 
 class PrintList :public Observer{
 private:
-    std::list<Item> items;
     unsigned int Totalqty;
     List *subject;
 public:
@@ -23,15 +22,13 @@ public:
         subject->unsubscribe(this);
     }
 
-    void showList ()const{
-        for (auto const & i :items){
-            i.showItem();
-        }
+    void showTotalqty ()const{
+        std::cout<<"    "<<subject->getName()<<"["<<Totalqty<<"]";
     }
+
     virtual void update()override{
-        items=subject->getItems();
         Totalqty=subject->getTotalqty();
-        showList();
+        showTotalqty();
     }
 
 

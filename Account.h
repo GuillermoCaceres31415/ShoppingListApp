@@ -40,28 +40,46 @@ public:
         auto itr=myLists.begin();
         std::advance(itr,command);
 
+        std::cout<<"    LISTA: "<<(*itr)->getName()<<std::endl;
         (*itr)->showList();
+        std::cout << "    [+] per aggiungere un prodotto" << std::endl;
+        std::cout << "    [n] per non modificare la lista" << std::endl;
+        std::cout << "    Inserire un comando: ";
 
+        std::string com;
+        std::cin >> com;
 
+        switch (com[0]) {
+            case '+': {
+                std::string NameProduct;
+                unsigned int qty;
+                std::cout << "    inserisci nome prodotto: " ;
+                std::cin>>NameProduct;
 
+                std::cout << "    inserire quantità: " ;
+                std::cin>>qty;
+
+                Item NewItem(NameProduct,qty,Category::CerealsAndDerivatives);
+                (*itr)->addItem(NewItem);
+                break;
+            }
+            case 'n':
+            case 'N':
+                break;
+            default:
+                std::cout << "Comando non riconosciuto!" << std::endl;
+                break;
+        }
 
     }
 
-    void CreateNewList(){
-        std::string pane="pane";
-        Item obj1(pane,3,Category::CerealsAndDerivatives);
-
-        std::string pollo="pollo";
-        Item obj2(pollo,2,Category::MeatAndDerivatives);
-
+    void CreateNewList(PrintList * p){
 
         std::cout<<"    inserire nome della lista: ";
         std::string nameList;
         std::cin>>nameList;
         List *list=new List(nameList);
-
-        list->addItem(obj1);
-        list->addItem(obj2);
+        p=new PrintList(list);
         myLists.push_back(list);
     }
 

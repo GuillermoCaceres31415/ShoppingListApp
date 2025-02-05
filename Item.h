@@ -18,7 +18,7 @@ public:
     }
 
     void showItem()const{
-        std::cout<<name<<" "<<qty<<std::endl;
+        std::cout<<"    "<<name<<" "<<qty<<std::endl;
     }
 
 
