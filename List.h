@@ -17,12 +17,18 @@ private:
 
     std::list <Observer*>observers;
 public:
-    List():Totalqty(0){}
+    explicit List(std::string& n):name(n),Totalqty(0){}
 
     void  addItem (Item &newItem) {
         items.push_back(newItem);
         Totalqty=Totalqty+ newItem.getQty();
         notify();
+    }
+
+    void showList ()const{
+        for (auto const & i :items){
+            i.showItem();
+        }
     }
 
     void subscribe(Observer*o)override{
@@ -41,6 +47,10 @@ public:
 
     const std::list<Item> &getItems() const {
         return items;
+    }
+
+    const std::string &getName() const {
+        return name;
     }
 
     unsigned int getTotalqty() const {
