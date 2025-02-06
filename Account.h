@@ -18,6 +18,10 @@ private:
 public:
     explicit Account(std::string &n):name(n){}
 
+    void AddList(List *newList){
+        myLists.push_back(newList);
+
+    }
     bool ShowMyLists(){
         if (!myLists.empty()) {
             int num = 0;
@@ -30,7 +34,6 @@ public:
             std::cout << "    [Non ci sono liste nel tuo account]"<<std::endl;
             return false;
         }
-
     }
 
     void SelectList(){
@@ -86,11 +89,13 @@ public:
         myLists.push_back(list);  // Memorizza la lista nel vettore
     }
 
-
     const std::string &getName() const {
         return name;
     }
 
+    const std::list<List *> &getMyLists() const {
+        return myLists;
+    }
 };
 
 

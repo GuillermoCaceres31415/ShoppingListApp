@@ -30,12 +30,6 @@ public:
         Totalqty=subject->getTotalqty();
         showTotalqty();
     }
-
-
-
-
-
-
 };
 
 
