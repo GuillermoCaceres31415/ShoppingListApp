@@ -3,8 +3,9 @@ project(ShoppingListApp)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(ShoppingListApp main.cpp
-        Item.cpp
+add_subdirectory(test)
+
+set(SOURCE_FILES  Item.cpp
         Item.h
         Category.h
         List.cpp
@@ -14,4 +15,10 @@ add_executable(ShoppingListApp main.cpp
         Observer.h
         Subject.h
         PrintList.cpp
-        PrintList.h)
+        PrintList.h )
+
+add_executable(ShoppingListApp main.cpp
+)
+
+add_library(core ${SOURCE_FILES})
+target_link_libraries(ShoppingListApp core)

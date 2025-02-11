@@ -18,6 +18,8 @@ public:
     Item (std::string & n, unsigned int q,Category c):name(n),qty(q),category(c){
     }
 
+    Item(){}
+
     std::string categoryToString(Category c)const {
         switch (c) {
             case Category::CerealsAndDerivatives: return "Cereali e derivati";
