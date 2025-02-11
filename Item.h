@@ -14,12 +14,27 @@ private:
     unsigned int qty;
     Category category;
 public:
+
     Item (std::string & n, unsigned int q,Category c):name(n),qty(q),category(c){
     }
 
-    void showItem()const{
-        std::cout<<"    "<<name<<" "<<qty<<std::endl;
+    std::string categoryToString(Category c)const {
+        switch (c) {
+            case Category::CerealsAndDerivatives: return "Cereali e derivati";
+            case Category::Dairy: return "Latticini";
+            case Category::FruitsAndVegetables: return "Frutta e verdura";
+            case Category::MeatAndFish: return "Carne e pesce";
+            case Category::Beverages: return "Bevande";
+            default: return "Sconosciuto";
+        }
     }
+
+
+
+    void showItem() const{
+        std::cout<<"    "<<name<<" "<<qty<<" "<<categoryToString(category)<<std::endl;
+    }
+
 
 
     const std::string &getName() const {

@@ -8,8 +8,11 @@
 
 
 enum class Category {
-    CerealsAndDerivatives, VegetablesAndGreens, Fruits, MeatAndDerivatives, FishAndSeafood, Eggs,
-    MilkAndDerivatives, Legumes, NutsAndSeeds, OilsAndFats, SugarsAndSweets, Beverages, SpicesAndHerbs
+    CerealsAndDerivatives,
+    Dairy,
+    FruitsAndVegetables,
+    MeatAndFish,
+    Beverages
 };
 
 
