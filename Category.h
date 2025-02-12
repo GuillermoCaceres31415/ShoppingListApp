@@ -17,4 +17,5 @@ enum class Category {
 
 
 
+
 #endif //SHOPPINGLISTAPP_CATEGORIA_H

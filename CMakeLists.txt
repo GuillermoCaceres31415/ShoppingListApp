@@ -14,8 +14,8 @@ set(SOURCE_FILES  Item.cpp
         Account.h
         Observer.h
         Subject.h
-        PrintList.cpp
-        PrintList.h )
+        PrintList.h
+        test)
 
 add_executable(ShoppingListApp main.cpp
 )

@@ -13,26 +13,14 @@ class List: public Subject{
 private:
     std::string name;
     std::list<Item> items;
-    unsigned int Totalqty;
+    unsigned int TotalQty;
     std::list <Observer*>observers;
-
 public:
-    explicit List(std::string& n):name(n),Totalqty(0){}
+    explicit List(std::string& n): name(n), TotalQty(0){}
 
-    void  addItem (Item &newItem) {
-        items.push_back(newItem);
-        Totalqty=Totalqty+ newItem.getQty();
-        notify();
-    }
+    void  addItem (Item &newItem);
 
-    void showList ()const {
-        if (!items.empty()) {
-        for (auto const &i: items)
-            i.showItem();
-        }else
-            std::cout<<"    [la lista è vuota]"<<std::endl;
-
-    }
+    void showList ()const ;
 
     void subscribe(Observer*o)override{
         observers.push_back(o);
@@ -42,11 +30,7 @@ public:
         observers.remove(o);
     }
 
-    void notify()override{
-        for (auto itr=std::begin(observers);itr!=std::end(observers);itr++){
-            (*itr)->update();
-        }
-    }
+    void notify()override;
 
     const std::list<Item> &getItems() const {
         return items;
@@ -57,7 +41,7 @@ public:
     }
 
     unsigned int getTotalqty() const {
-        return Totalqty;
+        return TotalQty;
     }
 
 };
