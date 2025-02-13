@@ -52,9 +52,9 @@ void Account::addProductPrompt(const std::__list_iterator<List *, void *> &itr) 
                 std::cin >> categoryChoice;
             }
             auto chosenCategory = static_cast<Category>(categoryChoice - 1);
-            Item* newItem = new Item(NameProduct, qty, chosenCategory);
-            (*itr)->addItem(*newItem);
-            delete newItem;
+            Item newItem (NameProduct, qty, chosenCategory);
+            (*itr)->addItem(newItem);
+
             break;
         }
         case 'n':
@@ -83,11 +83,11 @@ void Account::SelectList(){
     addProductPrompt(itr);
 }
 
-void Account::CreateNewList(PrintList *& p) {
+void Account::CreateNewList(PrintListQty *& p) {
     std::cout << "    Inserire nome della lista: ";
     std::string nameList;
     std::getline(std::cin >> std::ws, nameList);
     List* list = new List(nameList);
-    p = new PrintList(list);
+    p = new PrintListQty(list);
     myLists.push_back(list);
 }

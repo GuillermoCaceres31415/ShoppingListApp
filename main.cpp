@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include "PrintList.h"
+#include "PrintListQty.h"
 #include "Account.h"
 
 
@@ -25,10 +25,12 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
 
 
             switch (com[0]) {
+                //add account
                 case '+':
-                    PrintList *printList;
+                    PrintListQty *printList;
                     account.CreateNewList(printList);
                     break;
+                //select a list
                 case 's':
                 {
                     if (!Empty)
@@ -37,6 +39,7 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
                         account.SelectList();
                     break;
                 }
+                //import a external list
                 case 'i':
                  {
                     std::vector<std::pair<std::string, List *>> availableLists;
@@ -47,24 +50,22 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
                                       << "]" << std::endl;
                         }
                     }
-
                     if (availableLists.empty()) {
                         std::cout << "    Errore: non ci sono liste da importare!" << std::endl;
                         break;
                     }
-
                     std::string importList;
                     std::cout << "    inserire nome lista da importare: ";
                     std::cin >> importList;
-
                     for (const auto &pair: availableLists) {
                         if (pair.second->getName() == importList) {
                             account.AddList(pair.second);
                             break;
                         }
+                        break;
                     }
                 }
-
+                //exit
                 case 'x':
                 case 'X':
                     loop= false;
@@ -115,7 +116,7 @@ int main() {
                     UserListsManager(*account, database);
                     break;
                 }
-                    //
+                //access to an account
                 case 2: {
                     if (!database.empty()) {
                         std::cout << "    Account disponibili:\n";
@@ -136,6 +137,7 @@ int main() {
                         throw std::runtime_error("    Errore: Non sono stati trovati account");
                     break;
                 }
+                //exit
                 case 3: {
                     std::cout << "    uscita in corso..." << std::endl;
                     loop = false;
@@ -151,6 +153,9 @@ int main() {
             std::cout<<e.what()<<std::endl;
         }
     }
+    for (auto &entry : database)
+        delete entry.second;
+
     return 0;
 }
 

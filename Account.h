@@ -7,7 +7,7 @@
 #include <iostream>
 #include <memory>
 #include "List.h"
-#include "PrintList.h"
+#include "PrintListQty.h"
 #include "Item.h"
 #include "Category.h"
 
@@ -35,7 +35,7 @@ public:
 
     void SelectList();
 
-    void CreateNewList(PrintList *& p);
+    void CreateNewList(PrintListQty *& p);
 
     const std::string &getName() const {
         return name;
