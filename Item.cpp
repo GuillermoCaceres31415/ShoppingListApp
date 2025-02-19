@@ -15,3 +15,4 @@ std::string Item::getStringCategory()const {
         default: return "Sconosciuto";
     }
 }
+

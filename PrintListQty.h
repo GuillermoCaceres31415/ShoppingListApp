@@ -26,11 +26,10 @@ public:
         std::cout<<std::endl;
         std::cout << "    " << subject->getName() << "[prodotti tot:" << TotalQty << "]";
         std::cout<<std::endl;
-
     }
 
     void update()override{
-        TotalQty=subject->getTotalqty();
+        TotalQty=subject->getTotalItems();
         showTotalQty();
     }
 };

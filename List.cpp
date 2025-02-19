@@ -6,17 +6,30 @@
 
 void  List::addItem (Item &newItem) {
     items.push_back(newItem);
-    TotalQty= TotalQty + newItem.getQty();
+    TotalItems++;
     notify();
 }
 
-void List::showList ()const {
+void List::setPurchasedLastItem(){
+    for (auto& item : items) {
+        if (!item.isPurchased()) {
+            item.setPurchased(true);
+            TotalItems--;
+            notify();
+            return;
+        }
+    }
+}
+
+std::string List::getStringList ()const {
+    std::string stringList;
     if (!items.empty()) {
         for (auto const &i: items)
-            i.showItem();
-    }else
-        std::cout<<"    [la lista è vuota]"<<std::endl;
-
+            stringList+=(i.showItem()+"\n");
+        return stringList;
+    }else {
+        return "[la lista è vuota]\n";
+    }
 }
 
 void List::notify(){

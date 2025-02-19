@@ -13,14 +13,16 @@ class List: public Subject{
 private:
     std::string name;
     std::list<Item> items;
-    unsigned int TotalQty;
+    unsigned int TotalItems;
     std::list <Observer*>observers;
 public:
-    explicit List(std::string& n): name(n), TotalQty(0){}
+    explicit List(std::string& n): name(n), TotalItems(0){}
 
     void  addItem (Item &newItem);
 
-    void showList ()const ;
+    void setPurchasedLastItem();
+
+    std::string getStringList ()const ;
 
     void subscribe(Observer*o)override{
         observers.push_back(o);
@@ -40,8 +42,8 @@ public:
         return name;
     }
 
-    unsigned int getTotalqty() const {
-        return TotalQty;
+    unsigned int getTotalItems() const {
+        return TotalItems;
     }
 
 };

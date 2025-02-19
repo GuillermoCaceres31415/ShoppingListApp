@@ -17,10 +17,9 @@ protected:
 };
 
 TEST_F(ItemSuite, ShowItemTest) {
-    testing::internal::CaptureStdout();
-    c->showItem();
-    std::string output = testing::internal::GetCapturedStdout();
-    ASSERT_FALSE(output.empty());
+    std::string expectedOutput = "latte 2 Latticini [ ]";
+    std::string actualOutput = c->showItem();
+    ASSERT_EQ(actualOutput, expectedOutput);
 }
 
 TEST_F(ItemSuite, GetQtyTest) {

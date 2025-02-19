@@ -3,7 +3,7 @@
 
 TEST(Item, ConstructorTest) {
     std::string name = "Pane";
-    unsigned int qty = 3;
+    int qty = 3;
     Item c(name, qty, Category::CerealsAndDerivatives);
 
     ASSERT_EQ(c.getQty(), 3);
@@ -11,11 +11,18 @@ TEST(Item, ConstructorTest) {
 
 TEST(Item, GetStringCategoryTest) {
     std::string name = "Mela";
-    unsigned int qty = 5;
+    int qty = 5;
     Item c(name, qty, Category::FruitsAndVegetables);
 
     ASSERT_EQ(c.getStringCategory(), "Frutta e verdura");
 }
+
+TEST(Item,NegativeQuantityTest){
+    std::string name="latte";
+    int qty=-1;
+    ASSERT_THROW(Item c(name,qty,Category::Dairy),std::invalid_argument);
+}
+
 
 
 

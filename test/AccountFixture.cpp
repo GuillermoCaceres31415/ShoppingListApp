@@ -10,10 +10,10 @@ protected:
     List* shoppingList;
 
     void SetUp() override {
-        std::string accountName = "JohnDoe";
+        std::string accountName = "lucas";
         account = new Account(accountName);
 
-        std::string listName = "Groceries";
+        std::string listName = "spesaNatale";
         shoppingList = new List(listName);
         account->AddList(shoppingList);
     }
@@ -24,14 +24,13 @@ protected:
 };
 
 TEST_F(AccountSuite, ShowMyListsTest) {
-    testing::internal::CaptureStdout();
-    account->ShowMyLists();
-    std::string output = testing::internal::GetCapturedStdout();
-    ASSERT_FALSE(output.empty());
+    std::string output = account->ShowMyLists();
+    ASSERT_FALSE(output.empty());  // Verifica che l'output non sia vuoto
 }
 
+
 TEST_F(AccountSuite, GetNameTest) {
-    ASSERT_EQ(account->getName(), "JohnDoe");
+    ASSERT_EQ(account->getName(), "lucas");
 }
 
 TEST_F(AccountSuite, GetListsTest) {

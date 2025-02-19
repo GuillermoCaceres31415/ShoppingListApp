@@ -11,21 +11,41 @@
 class Item {
 private:
     std::string name;
-    unsigned int qty;
+    int qty;
     Category category;
+    bool purchased;
 public:
 
-    Item (std::string & n, unsigned int q,Category c):name(n),qty(q),category(c){}
+    Item (std::string & n,int q,Category c):name(n),qty(q),category(c),purchased(false){
+        if (q < 0) {
+            throw std::invalid_argument("La quantità non può essere negativa");
+        }
+    }
 
     std::string getStringCategory()const ;
 
-    void showItem() const{
-        std::cout<<"    "<<name<<" "<<qty<<" "<<getStringCategory()<<std::endl;
+    std::string showItem() const{
+        std::string selectedCheck;
+        if (purchased)
+            selectedCheck = "[x]";
+        else
+            selectedCheck= "[ ]";
+        return name+" "+std::to_string(qty)+" "+getStringCategory()+" "+selectedCheck;
     }
 
-    unsigned int getQty() const {
+    int getQty() const {
         return qty;
     }
+
+    void setPurchased(bool Newpurchased) {
+        Item::purchased = Newpurchased;
+    }
+
+    bool isPurchased() const {
+        return purchased;
+    }
+
+
 
 };
 

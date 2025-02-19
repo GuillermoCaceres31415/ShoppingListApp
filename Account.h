@@ -25,17 +25,24 @@ public:
         }
     }
 
+    bool isMyListsEmpty() const {
+        return myLists.empty();
+    }
+
+
     void AddList(List *newList){
         myLists.push_back(newList);
     }
 
-    bool ShowMyLists();
+    void ShowAList(const std::__list_iterator<List *, void *> &list);
 
-    static void addProductPrompt(const std::__list_iterator<List *, void *> &itr);
+    std::string ShowMyLists();
 
-    void SelectList();
+    static void addProductPrompt(const std::__list_iterator<List *, void *> &list);
 
-    void CreateNewList(PrintListQty *& p);
+    void SelectList( int numSelect);
+
+    void CreateNewList(PrintListQty *& p,std::string nameList);
 
     const std::string &getName() const {
         return name;
