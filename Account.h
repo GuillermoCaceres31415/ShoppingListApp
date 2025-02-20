@@ -19,7 +19,7 @@ private:
 public:
     explicit Account(std::string &n):name(n){}
 
-    ~Account() {
+    ~Account(){
         for (auto list : myLists) {
             delete list;
         }
@@ -29,18 +29,13 @@ public:
         return myLists.empty();
     }
 
-
     void AddList(List *newList){
         myLists.push_back(newList);
     }
 
-    void ShowAList(const std::__list_iterator<List *, void *> &list);
-
     std::string ShowMyLists();
 
-    static void addProductPrompt(const std::__list_iterator<List *, void *> &list);
-
-    void SelectList( int numSelect);
+    List* SelectList(int numSelect);
 
     void CreateNewList(PrintListQty *& p,std::string nameList);
 

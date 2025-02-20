@@ -16,3 +16,12 @@ std::string Item::getStringCategory()const {
     }
 }
 
+std::string Item::showItem() const {
+    std::string selectedCheck;
+    if (purchased)
+        selectedCheck = "[x]";
+    else
+        selectedCheck= "[ ]";
+    return name+" "+std::to_string(qty)+" "+getStringCategory()+" "+selectedCheck;
+}
+

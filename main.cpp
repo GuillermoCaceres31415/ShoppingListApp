@@ -25,7 +25,7 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
             std::cin >> com;
 
             switch (com[0]) {
-                //add account
+                //add list
                 case '+': {
                     PrintListQty *printList;
                     std::cout << "Inserire nome della lista: ";
@@ -43,20 +43,79 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
                         std::cout<<"seleziona una lista in base all'indice: ";
                         std::cin >> NumSelectLs;
 
-                        account.SelectList(NumSelectLs);
+                        auto list=account.SelectList(NumSelectLs);
+
+                        std::cout<<"*********************"<<std::endl;
+                        std::cout <<"LISTA: " << (*list).getName() << std::endl;
+                        std::cout<<"ITEM ANCORA DA COMPRARE: "<<(*list).getTotalItems()<<std::endl;
+                        std::cout<<std::endl;
+                        std::cout<< (*list).getStringList();
+                        std::cout<<"*********************"<<std::endl;
+
+                        std::cout << "[+] per aggiungere un prodotto" << std::endl;
+                        std::cout << "[e] per segnalare come comprato l'ultimo prodotto"<<std::endl;
+                        std::cout << "[n] per non modificare la lista" << std::endl;
+                        std::cout << "Inserire un comando: ";
+                        std::string command;
+                        std::cin >> command;
+                        switch (command[0]) {
+                            case '+': {
+                                std::string NameProduct;
+                                int qty;
+                                std::cout << "inserisci nome prodotto: ";
+                                std::cin >> NameProduct;
+
+                                std::cout << "inserire quantità: ";
+                                std::cin >> qty;
+
+                                std::vector<std::string> categoryNames = {
+                                        "CerealsAndDerivatives",
+                                        "Dairy",
+                                        "FruitsAndVegetables",
+                                        "MeatAndFish",
+                                        "Beverages"
+                                };
+                                std::cout << "Seleziona la categoria:" << std::endl;
+                                for (size_t i = 0; i < categoryNames.size(); ++i)
+                                    std::cout << "   " << (i + 1) << ") " << categoryNames[i] << std::endl;
+                                std::cout << "Inserisci il numero corrispondente alla categoria: ";
+                                int categoryChoice;
+                                std::cin >> categoryChoice;
+                                while (categoryChoice < 1 || categoryChoice > static_cast<int>(categoryNames.size())) {
+                                    std::cout << "Scelta non valida. Riprova: ";
+                                    std::cin >> categoryChoice;
+                                }
+                                auto chosenCategory = static_cast<Category>(categoryChoice - 1);
+                                Item newItem (NameProduct, qty, chosenCategory);
+                                (*list).addItem(newItem);
+
+                                break;
+                            }
+                            case 'e':
+                            {
+                                (*list).setPurchasedLastItem();
+                                break;
+                            }
+                            case 'n':
+                                break;
+                            default:
+                                std::cout << "Comando non riconosciuto!" << std::endl;
+                                break;
+                        }
 
 
                     }
                     break;
                 }
-                    //import a external list
+                //import a external
                 case 'i': {
                     std::vector<std::pair<std::string, List *>> availableLists;
                     for (const auto &itr1: database) {
+                        if (itr1.second->getName() == account.getName())
+                            continue;  // Salta l'utente corrente
                         for (auto itr2: itr1.second->getMyLists()) {
                             availableLists.emplace_back(itr1.second->getName(), itr2);
-                            std::cout << itr2->getName() << " [da account di " << itr1.second->getName()
-                                      << "]" << std::endl;
+                            std::cout << itr2->getName() << " [da account di " << itr1.second->getName() << "]" << std::endl;
                         }
                     }
                     if (availableLists.empty()) {
@@ -66,15 +125,19 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
                     std::string importList;
                     std::cout << "inserire nome lista da importare: ";
                     std::cin >> importList;
+                    bool listImported = false;
                     for (const auto &pair: availableLists) {
                         if (pair.second->getName() == importList) {
                             account.AddList(pair.second);
+                            listImported = true;
+                            std::cout << "Importazione avvenuta con successo!" << std::endl;
                             break;
                         }
-                        break;
                     }
+                    if (!listImported)
+                        std::cout << "Errore: Lista non trovata!" << std::endl;
                 }
-                    //exit
+                //exit
                 case 'x':
                 case 'X':
                     loop = false;
@@ -123,7 +186,7 @@ int main() {
                     std::getline(std::cin >> std::ws, name);
                     auto *account = new Account(name);
                     database[name] = account;
-                    UserListsManager(*account, database);
+                    UserListsManager(*account,database);
                     break;
                 }
                 //access to an account
@@ -162,11 +225,9 @@ int main() {
         }catch (std::runtime_error &e){
             std::cout<<e.what()<<std::endl;
         }
-
     }
     for (auto &entry : database)
         delete entry.second;
-
     return 0;
 }
 

@@ -17,28 +17,20 @@ private:
 public:
 
     Item (std::string & n,int q,Category c):name(n),qty(q),category(c),purchased(false){
-        if (q < 0) {
+        if (q < 0)
             throw std::invalid_argument("La quantità non può essere negativa");
-        }
     }
 
     std::string getStringCategory()const ;
 
-    std::string showItem() const{
-        std::string selectedCheck;
-        if (purchased)
-            selectedCheck = "[x]";
-        else
-            selectedCheck= "[ ]";
-        return name+" "+std::to_string(qty)+" "+getStringCategory()+" "+selectedCheck;
-    }
+    std::string showItem() const;
 
     int getQty() const {
         return qty;
     }
 
-    void setPurchased(bool Newpurchased) {
-        Item::purchased = Newpurchased;
+    void setPurchased(bool NewPurchased) {
+        Item::purchased = NewPurchased;
     }
 
     bool isPurchased() const {
