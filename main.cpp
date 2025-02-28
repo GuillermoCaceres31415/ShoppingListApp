@@ -31,7 +31,7 @@
                     std::cout << "Inserire nome della lista: ";
                     std::string nameList;
                     std::getline(std::cin >> std::ws, nameList);
-                    account.createNewList(listView, nameList); //todo
+                    account.createNewList(listView, nameList);
                     break;
                 }
                 //select a list
@@ -53,8 +53,10 @@
                         std::cout<<"*********************"<<std::endl;
 
                         std::cout << "[+] per aggiungere un prodotto" << std::endl;
-                        std::cout << "[e] per segnalare come comprato l'ultimo prodotto"<<std::endl;
-                        std::cout << "[n] per non modificare la lista" << std::endl;
+                        std::cout << "[e] per segnalare come comprato un prodotto"<<std::endl;
+                        std::cout << "[c] per cercare un prodotto"<<std::endl;
+                        std::cout << "[s] per selezionare i prodotti di una categoria";
+                        std::cout << "[x] per non modificare la lista" << std::endl;
                         std::cout << "Inserire un comando: ";
                         std::string command;
                         std::cin >> command;
@@ -99,7 +101,25 @@
                                 (*list).setPurchasedAnItem(index);
                                 break;
                             }
-                            case 'n':
+                            case 'c':
+                            {
+                                std::cout<<"inserire nome item da cercare: ";
+                                std::string name;
+                                std::cin>>name;
+                                std::cout<<std::endl;
+                                std::cout<<(*list).findItemByNameToString(name);
+                                break;
+
+                            }
+                            case 's':
+                            {
+                                std::cout<<"inserire categoria: "<<std::endl;
+                                std::string category;
+                                std::cin>>category;
+                                std::cout<<(*list).showItemsByCategory(category)<<std::endl;
+                                break;
+                            }
+                            case 'x':
                                 break;
                             default:
                                 std::cout << "Comando non riconosciuto!" << std::endl;

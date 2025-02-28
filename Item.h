@@ -37,9 +37,14 @@ public:
         return purchased;
     }
 
+    const std::string &getName() const {
+        return name;
+    }
+
 
 
 };
+
 
 
 #endif //SHOPPINGLISTAPP_ITEM_H

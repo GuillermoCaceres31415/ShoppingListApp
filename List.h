@@ -20,9 +20,15 @@ public:
 
     void addItem (const Item &newItem);
 
+    bool isItemInList(const std::string &itemName) const;
+
     void setPurchasedAnItem(int index);
 
-    const std::string showListToString()const;
+    std::string showListToString()const;
+
+    std::string findItemByNameToString(const std::string &itemName);
+
+    std::string showItemsByCategory(const std::string &category) const;
 
     void subscribe(Observer*o)override;
 

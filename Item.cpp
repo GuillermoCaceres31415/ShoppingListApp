@@ -7,10 +7,10 @@
 
 std::string Item::getStringCategory()const {
     switch (category) {
-        case Category::CerealsAndDerivatives: return "Cereali e derivati";
+        case Category::CerealsAndDerivatives: return "Cereali";
         case Category::Dairy: return "Latticini";
-        case Category::FruitsAndVegetables: return "Frutta e verdura";
-        case Category::MeatAndFish: return "Carne e pesce";
+        case Category::FruitsAndVegetables: return "FruttaEverdura";
+        case Category::MeatAndFish: return "Carne";
         case Category::Beverages: return "Bevande";
         default: return "Sconosciuto";
     }
@@ -24,4 +24,5 @@ std::string Item::showItemToString() const {
         selectedCheck= "[ ]";
     return name+" "+std::to_string(qty)+" "+getStringCategory()+" "+selectedCheck;
 }
+
 

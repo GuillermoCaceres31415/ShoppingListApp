@@ -4,10 +4,26 @@
 
 #include "List.h"
 
-void  List::addItem (const Item &newItem) {
-    items.push_back(newItem);
-    TotalItems++;
-    notify();
+bool List::isItemInList(const std::string &itemName) const {
+    return std::any_of(items.begin(), items.end(),
+                       [&itemName](const Item &item) { return item.getName() == itemName; });
+}
+
+void List::addItem(const Item &newItem) {
+    if (!isItemInList(newItem.getName())) {
+        items.push_back(newItem);
+        TotalItems++;
+        notify();
+    }
+}
+
+std::string List::findItemByNameToString(const std::string &itemName) {
+    for (auto &item : items) {
+        if (item.getName() == itemName) {
+            return item.showItemToString();
+        }
+    }
+    return "elemento non trovato\n";
 }
 
 void List::setPurchasedAnItem(const int index){
@@ -19,7 +35,7 @@ void List::setPurchasedAnItem(const int index){
     notify();
 }
 
-const std::string List::showListToString ()const {
+std::string List::showListToString ()const {
     std::string stringList;
     if (!items.empty()) {
         int index=0;
@@ -31,6 +47,20 @@ const std::string List::showListToString ()const {
     }else {
         return "[la lista è vuota]\n";
     }
+}
+
+std::string List::showItemsByCategory(const std::string &category) const {
+    std::string stringList;
+    bool found = false;
+    for (const auto &item : items) {
+        if (item.getStringCategory() == category) {
+            stringList += item.showItemToString() + "\n";
+            found = true;
+        }
+    }
+    if (!found)
+        return "[Nessun elemento trovato nella categoria '" + category + "']\n";
+    return stringList;
 }
 
 void List::notify(){
