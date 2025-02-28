@@ -16,7 +16,7 @@ std::string Item::getStringCategory()const {
     }
 }
 
-std::string Item::showItem() const {
+std::string Item::showItemToString() const {
     std::string selectedCheck;
     if (purchased)
         selectedCheck = "[x]";

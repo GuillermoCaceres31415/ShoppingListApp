@@ -12,29 +12,25 @@
 class List: public Subject{
 private:
     std::string name;
-    std::list<Item> items;
+    std::vector<Item> items;
     unsigned int TotalItems;
     std::list <Observer*>observers;
 public:
-    explicit List(std::string& n): name(n), TotalItems(0){}
+    explicit List(std::string n) : name(std::move(n)), TotalItems(0){}
 
-    void  addItem (Item &newItem);
+    void addItem (const Item &newItem);
 
-    void setPurchasedLastItem();
+    void setPurchasedAnItem(int index);
 
-    std::string getStringList ()const ;
+    const std::string showListToString()const;
 
-    void subscribe(Observer*o)override{
-        observers.push_back(o);
-    }
+    void subscribe(Observer*o)override;
 
-    void unsubscribe(Observer*o)override{
-        observers.remove(o);
-    }
+    void unsubscribe(Observer*o)override;
 
     void notify()override;
 
-    const std::list<Item> &getItems() const {
+    const std::vector<Item> &getItems() const {
         return items;
     }
 

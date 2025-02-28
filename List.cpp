@@ -4,28 +4,29 @@
 
 #include "List.h"
 
-void  List::addItem (Item &newItem) {
+void  List::addItem (const Item &newItem) {
     items.push_back(newItem);
     TotalItems++;
     notify();
 }
 
-void List::setPurchasedLastItem(){
-    for (auto& item : items) {
-        if (!item.isPurchased()) {
-            item.setPurchased(true);
-            TotalItems--;
-            notify();
-            return;
-        }
-    }
+void List::setPurchasedAnItem(const int index){
+    if (index >= items.size())
+        throw std::out_of_range("Indice fuori dal range della lista.");
+    auto it = std::next(items.begin(), index);
+    it->setPurchased(true);
+    TotalItems--;
+    notify();
 }
 
-std::string List::getStringList ()const {
+const std::string List::showListToString ()const {
     std::string stringList;
     if (!items.empty()) {
-        for (auto const &i: items)
-            stringList+=(i.showItem()+"\n");
+        int index=0;
+        for (auto const &i: items) {
+            stringList += "[" + std::to_string(index) + "] " + (i.showItemToString() + "\n");
+            index++;
+        }
         return stringList;
     }else {
         return "[la lista è vuota]\n";
@@ -35,4 +36,12 @@ std::string List::getStringList ()const {
 void List::notify(){
     for (auto itr=std::begin(observers);itr!=std::end(observers);itr++)
     (*itr)->update();
+}
+
+void List::subscribe(Observer*o){
+    observers.push_back(o);
+}
+
+void List::unsubscribe(Observer*o){
+observers.remove(o);
 }

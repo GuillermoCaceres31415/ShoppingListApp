@@ -2,23 +2,23 @@
 // Created by Guillermo on 03/02/25.
 //
 
-#ifndef SHOPPINGLISTAPP_PRINTLISTQTY_H
-#define SHOPPINGLISTAPP_PRINTLISTQTY_H
+#ifndef SHOPPINGLISTAPP_LISTVIEW_H
+#define SHOPPINGLISTAPP_LISTVIEW_H
 #include "Observer.h"
 #include "List.h"
 #include <list>
 #include "Item.h"
 
 
-class PrintListQty : public Observer{
+class ListView : public Observer{
 private:
     unsigned int TotalQty;
     List *subject;
 public:
-    explicit PrintListQty(List *l): subject(l), TotalQty(0){
+    explicit ListView(List *l): subject(l), TotalQty(0){
         subject->subscribe(this);
     }
-    ~PrintListQty() override{
+    ~ListView() override{
         subject->unsubscribe(this);
     }
 
@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif //SHOPPINGLISTAPP_PRINTLISTQTY_H
+#endif //SHOPPINGLISTAPP_LISTVIEW_H

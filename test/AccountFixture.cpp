@@ -15,7 +15,7 @@ protected:
 
         std::string listName = "spesaNatale";
         shoppingList = new List(listName);
-        account->AddList(shoppingList);
+        account->ImportList(shoppingList);
     }
 
     void TearDown() override {
@@ -24,7 +24,7 @@ protected:
 };
 
 TEST_F(AccountSuite, ShowMyListsTest) {
-    std::string output = account->ShowMyLists();
+    std::string output = account->showMyListsToString();
     ASSERT_FALSE(output.empty());  // Verifica che l'output non sia vuoto
 }
 

@@ -16,14 +16,14 @@ private:
     bool purchased;
 public:
 
-    Item (std::string & n,int q,Category c):name(n),qty(q),category(c),purchased(false){
+    Item (const std::string  &n,const int q,const Category c):name(n),qty(q),category(c),purchased(false){
         if (q < 0)
             throw std::invalid_argument("La quantità non può essere negativa");
     }
 
     std::string getStringCategory()const ;
 
-    std::string showItem() const;
+    std::string showItemToString() const;
 
     int getQty() const {
         return qty;

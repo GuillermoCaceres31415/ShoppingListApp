@@ -1,10 +1,10 @@
 #include <iostream>
 #include <map>
-#include "PrintListQty.h"
+#include "ListView.h"
 #include "Account.h"
 
 
-void UserListsManager(Account &account,std::map<std::string, Account*>& database){
+ void UserListsManager(Account &account,std::map<std::string, Account*>& database){
     bool loop= true;
         while (loop) {
             std::cout << R"(
@@ -13,7 +13,7 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
 ╚════════════════════════════════════╝
 )";
             std::cout << "**************************************" << std::endl;
-            std::cout<<account.ShowMyLists();
+            std::cout<< account.showMyListsToString();
             std::cout << "**************************************" << std::endl;
             std::cout << std::endl;
             std::cout << "[+] per creare una nuova lista" << std::endl;
@@ -27,29 +27,29 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
             switch (com[0]) {
                 //add list
                 case '+': {
-                    PrintListQty *printList;
+                    ListView *listView;
                     std::cout << "Inserire nome della lista: ";
                     std::string nameList;
                     std::getline(std::cin >> std::ws, nameList);
-                    account.CreateNewList(printList, nameList);
+                    account.createNewList(listView, nameList); //todo
                     break;
                 }
                 //select a list
                 case 's': {
-                    if (account.isMyListsEmpty())
+                    if (account.getMyLists().empty())
                         std::cout << "prima aggiungi una lista!" << std::endl;
                     else {
                         int NumSelectLs;
                         std::cout<<"seleziona una lista in base all'indice: ";
                         std::cin >> NumSelectLs;
 
-                        auto list=account.SelectList(NumSelectLs);
+                        auto list= account.selectList(NumSelectLs);
 
                         std::cout<<"*********************"<<std::endl;
                         std::cout <<"LISTA: " << (*list).getName() << std::endl;
                         std::cout<<"ITEM ANCORA DA COMPRARE: "<<(*list).getTotalItems()<<std::endl;
                         std::cout<<std::endl;
-                        std::cout<< (*list).getStringList();
+                        std::cout<< (*list).showListToString();
                         std::cout<<"*********************"<<std::endl;
 
                         std::cout << "[+] per aggiungere un prodotto" << std::endl;
@@ -93,7 +93,10 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
                             }
                             case 'e':
                             {
-                                (*list).setPurchasedLastItem();
+                                int index;
+                                std::cout<<"inserire indice del prodotto comprato: ";
+                                std::cin>>index;
+                                (*list).setPurchasedAnItem(index);
                                 break;
                             }
                             case 'n':
@@ -128,7 +131,7 @@ void UserListsManager(Account &account,std::map<std::string, Account*>& database
                     bool listImported = false;
                     for (const auto &pair: availableLists) {
                         if (pair.second->getName() == importList) {
-                            account.AddList(pair.second);
+                            account.ImportList(pair.second);
                             listImported = true;
                             std::cout << "Importazione avvenuta con successo!" << std::endl;
                             break;

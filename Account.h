@@ -6,8 +6,9 @@
 #define SHOPPINGLISTAPP_ACCOUNT_H
 #include <iostream>
 #include <memory>
+#include <utility>
 #include "List.h"
-#include "PrintListQty.h"
+#include "ListView.h"
 #include "Item.h"
 #include "Category.h"
 
@@ -15,35 +16,25 @@
 class Account {
 private:
     std::string name;
-    std::list<List*> myLists;
+    std::vector<List*> myLists;
 public:
-    explicit Account(std::string &n):name(n){}
+    explicit Account(std::string n):name(std::move(n)){}
 
-    ~Account(){
-        for (auto list : myLists) {
-            delete list;
-        }
-    }
+    ~Account();
 
-    bool isMyListsEmpty() const {
-        return myLists.empty();
-    }
+    void createNewList(ListView *& listView, const std::string &nameList);
 
-    void AddList(List *newList){
-        myLists.push_back(newList);
-    }
+    void ImportList(List *newList);
 
-    std::string ShowMyLists();
+    std::string showMyListsToString()const;
 
-    List* SelectList(int numSelect);
-
-    void CreateNewList(PrintListQty *& p,std::string nameList);
+    List* selectList(int numSelect)const;
 
     const std::string &getName() const {
         return name;
     }
 
-    const std::list<List *> &getMyLists() const {
+    const std::vector<List *> &getMyLists() const {
         return myLists;
     }
 };

@@ -18,7 +18,7 @@ protected:
 
 TEST_F(ItemSuite, ShowItemTest) {
     std::string expectedOutput = "latte 2 Latticini [ ]";
-    std::string actualOutput = c->showItem();
+    std::string actualOutput = c->showItemToString();
     ASSERT_EQ(actualOutput, expectedOutput);
 }
 
