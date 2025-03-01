@@ -15,8 +15,8 @@ std::string Account::showMyListsToString() const{
     std::string lists;
     if (!myLists.empty()) {
         int num = 0;
-        for (const auto itr : myLists) {
-            lists += "       ➤ [" + std::to_string(num) + "] " + itr->getName() + "\n";
+        for (const auto list : myLists) {
+            lists += "       ➤ [" + std::to_string(num) + "] " + list->getName() + "\n";
             num++;
         }
     } else

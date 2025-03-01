@@ -13,10 +13,10 @@ class List: public Subject{
 private:
     std::string name;
     std::vector<Item> items;
-    unsigned int TotalItems;
+    unsigned int remainingItems;
     std::list <Observer*>observers;
 public:
-    explicit List(std::string n) : name(std::move(n)), TotalItems(0){}
+    explicit List(std::string n) : name(std::move(n)), remainingItems(0){}
 
     void addItem (const Item &newItem);
 
@@ -28,7 +28,7 @@ public:
 
     std::string findItemByNameToString(const std::string &itemName);
 
-    std::string showItemsByCategory(const std::string &category) const;
+    std::string showItemsByCategoryToString(const std::string &category) const;
 
     void subscribe(Observer*o)override;
 
@@ -45,7 +45,7 @@ public:
     }
 
     unsigned int getTotalItems() const {
-        return TotalItems;
+        return remainingItems;
     }
 
 };

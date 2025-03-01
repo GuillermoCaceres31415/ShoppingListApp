@@ -55,7 +55,7 @@
                         std::cout << "[+] per aggiungere un prodotto" << std::endl;
                         std::cout << "[e] per segnalare come comprato un prodotto"<<std::endl;
                         std::cout << "[c] per cercare un prodotto"<<std::endl;
-                        std::cout << "[s] per selezionare i prodotti di una categoria";
+                        std::cout << "[s] per selezionare i prodotti di una categoria"<<std::endl;
                         std::cout << "[x] per non modificare la lista" << std::endl;
                         std::cout << "Inserire un comando: ";
                         std::string command;
@@ -116,7 +116,7 @@
                                 std::cout<<"inserire categoria: "<<std::endl;
                                 std::string category;
                                 std::cin>>category;
-                                std::cout<<(*list).showItemsByCategory(category)<<std::endl;
+                                std::cout << (*list).showItemsByCategoryToString(category) << std::endl;
                                 break;
                             }
                             case 'x':

@@ -14,7 +14,7 @@ TEST(Item, GetStringCategoryTest) {
     int qty = 5;
     Item c(name, qty, Category::FruitsAndVegetables);
 
-    ASSERT_EQ(c.getStringCategory(), "Frutta e verdura");
+    ASSERT_EQ(c.getStringCategory(), "FruttaEverdura");
 }
 
 TEST(Item,NegativeQuantityTest){

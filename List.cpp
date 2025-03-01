@@ -12,7 +12,7 @@ bool List::isItemInList(const std::string &itemName) const {
 void List::addItem(const Item &newItem) {
     if (!isItemInList(newItem.getName())) {
         items.push_back(newItem);
-        TotalItems++;
+        remainingItems++;
         notify();
     }
 }
@@ -31,7 +31,7 @@ void List::setPurchasedAnItem(const int index){
         throw std::out_of_range("Indice fuori dal range della lista.");
     auto it = std::next(items.begin(), index);
     it->setPurchased(true);
-    TotalItems--;
+    remainingItems--;
     notify();
 }
 
@@ -49,7 +49,7 @@ std::string List::showListToString ()const {
     }
 }
 
-std::string List::showItemsByCategory(const std::string &category) const {
+std::string List::showItemsByCategoryToString(const std::string &category) const {
     std::string stringList;
     bool found = false;
     for (const auto &item : items) {
@@ -73,5 +73,5 @@ void List::subscribe(Observer*o){
 }
 
 void List::unsubscribe(Observer*o){
-observers.remove(o);
+    observers.remove(o);
 }

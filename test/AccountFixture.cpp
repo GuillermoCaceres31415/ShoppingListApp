@@ -25,7 +25,7 @@ protected:
 
 TEST_F(AccountSuite, ShowMyListsTest) {
     std::string output = account->showMyListsToString();
-    ASSERT_FALSE(output.empty());  // Verifica che l'output non sia vuoto
+    ASSERT_FALSE(output.empty());
 }
 
 
