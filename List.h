@@ -26,7 +26,7 @@ public:
 
     std::string showListToString()const;
 
-    std::string findItemByNameToString(const std::string &itemName);
+    std::string findItemByNameToString(const std::string &itemName)const;
 
     std::string showItemsByCategoryToString(const std::string &category) const;
 

@@ -17,7 +17,7 @@ void List::addItem(const Item &newItem) {
     }
 }
 
-std::string List::findItemByNameToString(const std::string &itemName) {
+std::string List::findItemByNameToString(const std::string &itemName)const {
     for (auto &item : items) {
         if (item.getName() == itemName) {
             return item.showItemToString();
