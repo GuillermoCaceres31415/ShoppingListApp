@@ -3,7 +3,7 @@
 //
 
 #include "Account.h"
-#include "iostream"
+#include <iostream>
 
 Account::~Account(){
     for (auto list : myLists) {
@@ -19,8 +19,7 @@ std::string Account::showMyListsToString() const{
             lists += "       ➤ [" + std::to_string(num) + "] " + list->getName() + "\n";
             num++;
         }
-    } else
-        lists = "[Non ci sono liste nel tuo account]\n";
+    }
     return lists;
 }
 

@@ -5,8 +5,6 @@
 #ifndef SHOPPINGLISTAPP_ACCOUNT_H
 #define SHOPPINGLISTAPP_ACCOUNT_H
 #include <iostream>
-#include <memory>
-#include <utility>
 #include "List.h"
 #include "ListView.h"
 #include "Item.h"

@@ -25,6 +25,8 @@ public:
 
     std::string showItemToString()const;
 
+    bool operator==(const Item& other) const ;
+
     int getQty() const {
         return qty;
     }
@@ -40,8 +42,6 @@ public:
     const std::string &getName() const {
         return name;
     }
-
-
 
 };
 

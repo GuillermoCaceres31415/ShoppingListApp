@@ -7,8 +7,8 @@ protected:
 
     void SetUp() override {
         std::string name = "latte";
-        unsigned int qty = 2;
-        c = new Item(name, qty, Category::Dairy);
+        int qty = 2;
+        c = new Item(name,qty, Category::Dairy);
     }
 
     void TearDown() override {

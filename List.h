@@ -12,7 +12,7 @@
 class List: public Subject{
 private:
     std::string name;
-    std::vector<Item> items;
+    std::vector<Item*> items;
     unsigned int remainingItems;
     std::list <Observer*>observers;
 public:
@@ -26,7 +26,7 @@ public:
 
     std::string showListToString()const;
 
-    std::string findItemByNameToString(const std::string &itemName)const;
+    Item* findItemByName(const std::string &itemName)const;
 
     std::string showItemsByCategoryToString(const std::string &category) const;
 
@@ -36,15 +36,13 @@ public:
 
     void notify()override;
 
-    const std::vector<Item> &getItems() const {
-        return items;
-    }
+    const std::vector<Item *> &getItems() const;
 
     const std::string &getName() const {
         return name;
     }
 
-    unsigned int getTotalItems() const {
+    unsigned int getRemainingNum() const {
         return remainingItems;
     }
 

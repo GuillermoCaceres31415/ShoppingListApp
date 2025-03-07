@@ -26,3 +26,10 @@ std::string Item::showItemToString() const {
 }
 
 
+bool Item::operator==(const Item& other) const {
+    return name == other.name &&
+           qty == other.qty &&
+           category == other.category &&
+           purchased == other.purchased;
+}
+

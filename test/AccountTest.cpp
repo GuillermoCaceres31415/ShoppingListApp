@@ -80,6 +80,5 @@ TEST(Account, SelectListTest) {
     ASSERT_EQ(account.selectList(0), list0);
     ASSERT_EQ(account.selectList(1), list1);
     ASSERT_EQ(account.selectList(2), list2);
-
 }
 

@@ -13,7 +13,11 @@
 ╚════════════════════════════════════╝
 )";
             std::cout << "**************************************" << std::endl;
-            std::cout<< account.showMyListsToString();
+            std::string lists = account.showMyListsToString();
+            if (lists.empty())
+                std::cout << "[non sono presenti liste]\n";
+            else
+                std::cout << lists;
             std::cout << "**************************************" << std::endl;
             std::cout << std::endl;
             std::cout << "[+] per creare una nuova lista" << std::endl;
@@ -46,10 +50,19 @@
                         auto list= account.selectList(NumSelectLs);
 
                         std::cout<<"*********************"<<std::endl;
-                        std::cout <<"LISTA: " << (*list).getName() << std::endl;
-                        std::cout<<"ITEM ANCORA DA COMPRARE: "<<(*list).getTotalItems()<<std::endl;
+                        std::cout <<"LISTA: " << list->getName() << std::endl;
+                        std::cout << "ITEM ANCORA DA COMPRARE: " << (*list).getRemainingNum() << std::endl;
                         std::cout<<std::endl;
-                        std::cout<< (*list).showListToString();
+
+
+                        std::string listString = list->showListToString();
+                        if (listString.empty()) {
+                            std::cout << "[la lista è vuota]\n";
+                        } else {
+                            std::cout << listString;
+                        }
+
+
                         std::cout<<"*********************"<<std::endl;
 
                         std::cout << "[+] per aggiungere un prodotto" << std::endl;
@@ -107,7 +120,12 @@
                                 std::string name;
                                 std::cin>>name;
                                 std::cout<<std::endl;
-                                std::cout<<(*list).findItemByNameToString(name);
+
+                                Item* foundItem=(*list).findItemByName(name);
+                                if(!foundItem)
+                                    std::cout<<"Item non trovato"<<std::endl;
+                                else
+                                    std::cout<<foundItem->showItemToString()<<std::endl;
                                 break;
 
                             }
@@ -116,7 +134,12 @@
                                 std::cout<<"inserire categoria: "<<std::endl;
                                 std::string category;
                                 std::cin>>category;
-                                std::cout << (*list).showItemsByCategoryToString(category) << std::endl;
+
+                                std::string listStringByCategory = list->showItemsByCategoryToString(category);
+                                if (listStringByCategory.empty())
+                                    std::cout << "[la lista è vuota]\n";
+                                else
+                                    std::cout << listStringByCategory;
                                 break;
                             }
                             case 'x':

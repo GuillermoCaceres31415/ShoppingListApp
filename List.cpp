@@ -6,31 +6,33 @@
 
 bool List::isItemInList(const std::string &itemName) const {
     return std::any_of(items.begin(), items.end(),
-                       [&itemName](const Item &item) { return item.getName() == itemName; });
+                       [&itemName](const Item* item) {
+                           return item->getName() == itemName;
+                       });
 }
 
 void List::addItem(const Item &newItem) {
     if (!isItemInList(newItem.getName())) {
-        items.push_back(newItem);
+        Item* newItemCopy = new Item(newItem);
+        items.push_back(newItemCopy);
         remainingItems++;
         notify();
     }
 }
 
-std::string List::findItemByNameToString(const std::string &itemName)const {
+Item* List::findItemByName(const std::string &itemName) const{
     for (auto &item : items) {
-        if (item.getName() == itemName) {
-            return item.showItemToString();
-        }
+        if (item->getName() == itemName)
+            return item;
     }
-    return "elemento non trovato\n";
+    return nullptr;
 }
 
 void List::setPurchasedAnItem(const int index){
     if (index >= items.size())
         throw std::out_of_range("Indice fuori dal range della lista.");
     auto it = std::next(items.begin(), index);
-    it->setPurchased(true);
+    (*it)->setPurchased(true);
     remainingItems--;
     notify();
 }
@@ -40,26 +42,20 @@ std::string List::showListToString ()const {
     if (!items.empty()) {
         int index=0;
         for (auto const &i: items) {
-            stringList += "[" + std::to_string(index) + "] " + (i.showItemToString() + "\n");
+            stringList += "[" + std::to_string(index) + "] " + (i->showItemToString() + "\n");
             index++;
         }
-        return stringList;
-    }else {
-        return "[la lista è vuota]\n";
     }
+    return stringList;
 }
 
 std::string List::showItemsByCategoryToString(const std::string &category) const {
     std::string stringList;
-    bool found = false;
     for (const auto &item : items) {
-        if (item.getStringCategory() == category) {
-            stringList += item.showItemToString() + "\n";
-            found = true;
+        if (item->getStringCategory() == category) {
+            stringList += item->showItemToString() + "\n";
         }
     }
-    if (!found)
-        return "[Nessun elemento trovato nella categoria '" + category + "']\n";
     return stringList;
 }
 
@@ -74,4 +70,8 @@ void List::subscribe(Observer*o){
 
 void List::unsubscribe(Observer*o){
     observers.remove(o);
+}
+
+const std::vector<Item *> &List::getItems() const {
+    return items;
 }

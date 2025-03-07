@@ -29,7 +29,7 @@ public:
     }
 
     void update()override{
-        TotalQty=subject->getTotalItems();
+        TotalQty= subject->getRemainingNum();
         showTotalQty();
     }
 };
