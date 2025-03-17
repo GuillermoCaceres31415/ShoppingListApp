@@ -47,11 +47,11 @@ TEST(List, SetPurchasedAnItemTest) {
     Item* item2 = new Item(itemName2,22,Category::Beverages);
     list.addItem(*item2);
 
-    list.setPurchasedAnItem(1);
+    list.setPurchasedAnItem("salame");
 
-    ASSERT_FALSE((list.getItems()[0])->isPurchased());
-    ASSERT_TRUE((list.getItems()[1])->isPurchased());
-    ASSERT_FALSE((list.getItems()[2])->isPurchased());
+    ASSERT_FALSE(list.findItemByName("pasta")->isPurchased());
+    ASSERT_TRUE(list.findItemByName("salame")->isPurchased());
+    ASSERT_FALSE(list.findItemByName("pollo")->isPurchased());
 }
 
 TEST(List, RemainingItemsTest) {
@@ -70,8 +70,8 @@ TEST(List, RemainingItemsTest) {
     Item* item2 = new Item(itemName2,22,Category::Beverages);
     list.addItem(*item2);
 
-    list.setPurchasedAnItem(1);
-    list.setPurchasedAnItem(2);
+    list.setPurchasedAnItem("pasta");
+    list.setPurchasedAnItem("salame");
 
     ASSERT_EQ(list.getRemainingNum(),1);
 }
@@ -103,10 +103,10 @@ TEST(List, ShowListToStringTest) {
     Item* item2 = new Item(itemName2,22,Category::Beverages);
     list.addItem(*item2);
 
-    ASSERT_EQ(list.showListToString(),"[0] pasta 2 Bevande [ ]\n[1] pollo 22 Bevande [ ]\n");
+    ASSERT_EQ(list.showListToString(),"pasta 2 Bevande [ ]\npollo 22 Bevande [ ]\n");
 }
 
-TEST(List, ShowItemsByCategoryToStringTest) {
+TEST(List, ShowItemsByCategoryTest) {
     std::string listName = "spesa";
     List list(listName);
 
@@ -122,5 +122,8 @@ TEST(List, ShowItemsByCategoryToStringTest) {
     Item* item3 = new Item(itemName3,23,Category::MeatAndFish);
     list.addItem(*item3);
 
-    ASSERT_EQ(list.showItemsByCategoryToString("Bevande"),"limonata 2 Bevande [ ]\n");
+    std::vector<Item*> beverages = list.showItemsByCategory("Bevande");
+
+    ASSERT_EQ(beverages.size(), 1);
+    ASSERT_EQ(beverages[0]->getStringCategory(), "Bevande");
 }

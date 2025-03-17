@@ -108,10 +108,10 @@
                             }
                             case 'e':
                             {
-                                int index;
-                                std::cout<<"inserire indice del prodotto comprato: ";
-                                std::cin>>index;
-                                (*list).setPurchasedAnItem(index);
+                                std::string ItemName;
+                                std::cout<<"inserire nome del prodotto comprato: ";
+                                std::cin>>ItemName;
+                                (*list).setPurchasedAnItem(ItemName);
                                 break;
                             }
                             case 'c':
@@ -129,19 +129,23 @@
                                 break;
 
                             }
-                            case 's':
-                            {
-                                std::cout<<"inserire categoria: "<<std::endl;
+                            case 's': {
+                                std::cout << "Inserire categoria: " << std::endl;
                                 std::string category;
-                                std::cin>>category;
+                                std::cin >> category;
 
-                                std::string listStringByCategory = list->showItemsByCategoryToString(category);
-                                if (listStringByCategory.empty())
-                                    std::cout << "[la lista è vuota]\n";
-                                else
-                                    std::cout << listStringByCategory;
+                                std::vector<Item*> itemsByCategory = list->showItemsByCategory(category);
+
+                                if (itemsByCategory.empty()) {
+                                    std::cout << "[La lista è vuota]\n";
+                                } else {
+                                    for (const auto &item : itemsByCategory) {
+                                        std::cout << item->showItemToString() << std::endl;
+                                    }
+                                }
                                 break;
                             }
+
                             case 'x':
                                 break;
                             default:

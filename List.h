@@ -5,6 +5,7 @@
 #ifndef SHOPPINGLISTAPP_LIST_H
 #define SHOPPINGLISTAPP_LIST_H
 #include <list>
+#include <map>
 #include "Item.h"
 #include "Subject.h"
 #include "Observer.h"
@@ -12,23 +13,22 @@
 class List: public Subject{
 private:
     std::string name;
-    std::vector<Item*> items;
+    std::map<std::string,Item*> items;
     unsigned int remainingItems;
     std::list <Observer*>observers;
+    bool isItemInList(const std::string &itemName) const;
 public:
     explicit List(std::string n) : name(std::move(n)), remainingItems(0){}
 
     void addItem (const Item &newItem);
 
-    bool isItemInList(const std::string &itemName) const;
-
-    void setPurchasedAnItem(int index);
+    void setPurchasedAnItem(const std::string &itemName);
 
     std::string showListToString()const;
 
     Item* findItemByName(const std::string &itemName)const;
 
-    std::string showItemsByCategoryToString(const std::string &category) const;
+    std::vector<Item*> showItemsByCategory(const std::string &category) const ;
 
     void subscribe(Observer*o)override;
 
@@ -36,7 +36,7 @@ public:
 
     void notify()override;
 
-    const std::vector<Item *> &getItems() const;
+    const std::map<std::string, Item *> &getItems() const;
 
     const std::string &getName() const {
         return name;
