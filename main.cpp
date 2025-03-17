@@ -157,7 +157,7 @@
                     }
                     break;
                 }
-                //import a external
+                //import a external list
                 case 'i': {
                     std::vector<std::pair<std::string, List *>> availableLists;
                     for (const auto &itr1: database) {

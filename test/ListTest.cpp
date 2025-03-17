@@ -114,6 +114,10 @@ TEST(List, ShowItemsByCategoryTest) {
     Item* item0 = new Item(itemName0,2,Category::Beverages);
     list.addItem(*item0);
 
+    std::string itemName1 = "succo";
+    Item* item1 = new Item(itemName1,2,Category::Beverages);
+    list.addItem(*item1);
+
     std::string itemName2 = "pollo";
     Item* item2 = new Item(itemName2,22,Category::MeatAndFish);
     list.addItem(*item2);
@@ -124,6 +128,8 @@ TEST(List, ShowItemsByCategoryTest) {
 
     std::vector<Item*> beverages = list.showItemsByCategory("Bevande");
 
-    ASSERT_EQ(beverages.size(), 1);
-    ASSERT_EQ(beverages[0]->getStringCategory(), "Bevande");
+    ASSERT_EQ(beverages.size(),2);
+    for (auto itr:beverages)
+        ASSERT_EQ(itr->getStringCategory(),"Bevande");
+
 }

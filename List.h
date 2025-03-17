@@ -36,7 +36,9 @@ public:
 
     void notify()override;
 
-    const std::map<std::string, Item *> &getItems() const;
+    const std::map<std::string, Item *> &getItems() const {
+        return items;
+    }
 
     const std::string &getName() const {
         return name;

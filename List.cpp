@@ -28,13 +28,13 @@ Item* List::findItemByName(const std::string &itemName) const {
 
 void List::setPurchasedAnItem(const std::string &itemName) {
     auto it = items.find(itemName);
-
     if (it == items.end())
         throw std::out_of_range("L'elemento '" + itemName + "' non è presente nella lista.");
-
-    it->second->setPurchased(true);
-    remainingItems--;
-    notify();
+    else {
+        it->second->setPurchased(true);
+        remainingItems--;
+        notify();
+    }
 }
 
 
@@ -50,13 +50,12 @@ std::string List::showListToString() const {
 
 std::vector<Item *> List::showItemsByCategory(const std::string &category) const {
     std::vector<Item *> filteredItems;
-
     for (const auto &pair: items) {
         if (pair.second->getStringCategory() == category)
                 filteredItems.push_back(pair.second);
     }
         return filteredItems;
-    }
+}
 
 void List::notify() {
     for (auto itr = std::begin(observers); itr != std::end(observers); itr++)
@@ -71,6 +70,3 @@ void List::unsubscribe(Observer *o) {
     observers.remove(o);
 }
 
-const std::map<std::string, Item *> &List::getItems() const {
-    return items;
-}
